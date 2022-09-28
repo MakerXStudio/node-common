@@ -109,6 +109,21 @@ export const createServices = (context: BaseContext): Services => {
 }
 ```
 
+### HttpResponseError
+
+A custom Error class which includes a `responseInfo` field to make investigating HTTP errors (via logs etc) a little easier.
+
+A static `create` async factory will attempt to read the response body (as json, then text) and add it to the error.
+
+```ts
+const response = await fetch('https://broken.io/error', {
+  method: 'POST',
+  body,
+})
+
+if (!response.ok) throw await HttpResponseError.create(response, 'POST failed')
+```
+
 ## Authorisation
 
 A number of authorisation functions and `HttpAuthFactory` wrappers are exported:
