@@ -58,7 +58,7 @@ const toUrlParams = (data: Record<string, unknown>): string => {
         if (value !== null && value !== undefined) params.append(key, `${value}`)
       })
     } else if (value !== null && value !== undefined) {
-      params.append(key, `${value}`)
+      params.append(key, String(value))
     }
   })
 
@@ -99,6 +99,7 @@ export class HttpClient<TContext = never> {
 
   public async request<T>(url: string, args: { data?: unknown; init?: RequestInit }): Promise<T> {
     const response = await this.requestRaw(url, args)
+    if (response.status === 204) return undefined as T
     return (await response.json()) as T
   }
 
