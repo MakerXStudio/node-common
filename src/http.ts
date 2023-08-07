@@ -58,7 +58,7 @@ const toUrlParams = (data: Record<string, unknown>): string => {
         if (value !== null && value !== undefined) params.append(key, `${value}`)
       })
     } else if (value !== null && value !== undefined) {
-      params.append(key, `${value}`)
+      params.append(key, String(value))
     }
   })
 
