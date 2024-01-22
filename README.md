@@ -57,7 +57,7 @@ const logger: Logger = {
 
 ### HttpClient
 
-`HttpClient` is a class wrapping `node-fetch` to make calling Web API endpoints slightly easier:
+`HttpClient` is a class wrapping `fetch` to make calling Web API endpoints slightly easier:
 
 - supports setting a base URL so relative paths can be used
 - supports providing an function to set an authorization header on every request
@@ -114,36 +114,34 @@ export const createServices = (context: BaseContext): Services => {
 If the `HttpClient` class is too opinionated for your use case, or you simply want a stateless wrapper for the fetch api with some sensible defaults; we export the function `makeHttpRequest` which is what `HttpClient` uses internally. This function takes care of request logging but leaves request encoding and response decoding to the consumer which offers a higher degree of flexibility.
 
 ```ts
-import { makeHttpRequest } from "./http";
+import { makeHttpRequest } from './http'
 
 const usersResponse = await makeHttpRequest({
   url: 'https://localhost:8080/api/users',
   method: 'GET',
   headers: {
-    'Authorization': 'Bearer abc123def'
+    Authorization: 'Bearer abc123def',
   },
   ensureSuccessStatusCode: false,
   logger: myLogger,
   requestLogLovel: 'debug',
   logContext: {
     service: 'My Service Name',
-    version: '1.0.0'
+    version: '1.0.0',
   },
   accept: 'application/json',
   fetchInit: {
-    redirect: 'manual'
-  }
+    redirect: 'manual',
+  },
 })
 
-if(usersResponse.ok) {
+if (usersResponse.ok) {
   const users = await usersResponse.json()
-} else if(usersResponse.status === 302) {
+} else if (usersResponse.status === 302) {
   const redirectLocation = usersResponse.headers.get('location')
 } else {
   // Do something with error code???
 }
-
-
 ```
 
 ### HttpResponseError
@@ -160,6 +158,12 @@ const response = await fetch('https://broken.io/error', {
 
 if (!response.ok) throw await HttpResponseError.create(response, 'POST failed')
 ```
+
+### Polyfilling fetch for NodeJS v16
+
+If you are using NodeJS v16 or below, you will need to polyfill the global `fetch` function. We recommend using [node-fetch](https://github.com/node-fetch/node-fetch?tab=readme-ov-file#providing-global-access).
+
+```ts
 
 ## Authorisation
 
@@ -179,3 +183,4 @@ A number of authorisation functions and `HttpAuthFactory` wrappers are exported:
 
 - `getBasicAuthHeader`: returns a `Basic {value}` auth header string based on the supplied username and password.
 - `createBasicAuthFactory`: calls `getBasicAuthHeader` and returns an authorization header.
+```
