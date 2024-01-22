@@ -5,8 +5,21 @@
   "description": "A set of MakerX core NodeJS types and utilities",
   "author": "MakerX",
   "license": "MIT",
+  "type": "module",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "module": "./index.mjs",
+      "import": "./index.mjs",
+      "require": "./index.cjs",
+      "default": "./index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "engines": {
-    "node": ">=16.0"
+    "node": ">=18.0"
   },
   "bugs": {
     "url": "https://github.com/MakerXStudio/node-common/issues"
@@ -19,8 +32,8 @@
   "scripts": {
     "build": "run-s build:*",
     "build:0-clean": "rimraf dist coverage",
-    "build:1-compile": "tsc -p tsconfig.build.json",
-    "build:2-copy-pkg-json": "npx --yes @makerx/ts-toolkit@latest copy-package-json",
+    "build:1-compile": "rollup -c --configPlugin typescript",
+    "build:2-copy-pkg-json": "npx --yes @makerx/ts-toolkit@latest copy-package-json --custom-sections type module types exports",
     "build:3-copy-readme": "copyfiles README.md dist",
     "test": "jest --coverage --coverageReporters=text",
     "npm:link": "npm link ./dist",
