@@ -163,8 +163,6 @@ if (!response.ok) throw await HttpResponseError.create(response, 'POST failed')
 
 If you are using NodeJS v16 or below, you will need to polyfill the global `fetch` function. We recommend using [node-fetch](https://github.com/node-fetch/node-fetch?tab=readme-ov-file#providing-global-access).
 
-```ts
-
 ## Authorisation
 
 A number of authorisation functions and `HttpAuthFactory` wrappers are exported:
@@ -183,4 +181,7 @@ A number of authorisation functions and `HttpAuthFactory` wrappers are exported:
 
 - `getBasicAuthHeader`: returns a `Basic {value}` auth header string based on the supplied username and password.
 - `createBasicAuthFactory`: calls `getBasicAuthHeader` and returns an authorization header.
+
+```
+
 ```
