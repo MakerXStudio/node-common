@@ -1,4 +1,4 @@
-import { getCircularReplacer } from './index'
+import { getCircularReplacer } from './get-circular-replacer'
 
 describe('getCircularReplacer', () => {
   describe('When stringifying an object with a circular reference', () => {

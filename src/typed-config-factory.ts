@@ -1,10 +1,10 @@
 export type ValueFromPropertyPath<TKey, TConfig> = TKey extends keyof TConfig
   ? TConfig[TKey]
   : TKey extends `${infer TFirst}.${infer TRest}`
-  ? TFirst extends keyof TConfig
-    ? ValueFromPropertyPath<TRest, TConfig[TFirst]>
+    ? TFirst extends keyof TConfig
+      ? ValueFromPropertyPath<TRest, TConfig[TFirst]>
+      : never
     : never
-  : never
 
 export type TypedConfig<TConfig extends object, TOpaque> = {
   get<TPath extends PropertyPaths<TConfig, TOpaque>>(path: TPath): ValueFromPropertyPath<TPath, TConfig>
@@ -28,14 +28,14 @@ type ContainsType<T, TUnionOfTypes> = true extends (
 export type PropertyPaths<T, TOpaque = DefaultOpaqueTypes, D extends number = 10> = [D] extends [never]
   ? never
   : T extends object
-  ? ContainsType<T, TOpaque> extends true
-    ? ''
-    : {
-        [K in keyof T]-?: K extends string | number
-          ? `${K}` | (PropertyPaths<T[K], TOpaque, Prev[D]> extends infer R ? JoinPaths<K, R> : never)
-          : never
-      }[keyof T]
-  : ''
+    ? ContainsType<T, TOpaque> extends true
+      ? ''
+      : {
+          [K in keyof T]-?: K extends string | number
+            ? `${K}` | (PropertyPaths<T[K], TOpaque, Prev[D]> extends infer R ? JoinPaths<K, R> : never)
+            : never
+        }[keyof T]
+    : ''
 
 type Prev = [never, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...0[]]
 
