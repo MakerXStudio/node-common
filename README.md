@@ -181,7 +181,3 @@ A number of authorisation functions and `HttpAuthFactory` wrappers are exported:
 
 - `getBasicAuthHeader`: returns a `Basic {value}` auth header string based on the supplied username and password.
 - `createBasicAuthFactory`: calls `getBasicAuthHeader` and returns an authorization header.
-
-```
-
-```
