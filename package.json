@@ -8,6 +8,7 @@
   "type": "module",
   "module": "index.mjs",
   "types": "index.d.ts",
+  "main": "index.cjs",
   "exports": {
     ".": {
       "types": "./index.d.ts",
