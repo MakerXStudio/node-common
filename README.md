@@ -161,7 +161,7 @@ if (!response.ok) throw await HttpResponseError.create(response, 'POST failed')
 
 ### Polyfilling fetch for NodeJS v16
 
-If you are using NodeJS v16 or below, you will need to polyfill the global `fetch` function. We recommend using [node-fetch](https://github.com/node-fetch/node-fetch?tab=readme-ov-file#providing-global-access).
+When using NodeJS v16 or below, you must polyfill the global `fetch` function. We recommend using [node-fetch](https://github.com/node-fetch/node-fetch?tab=readme-ov-file#providing-global-access) as a drop-in polyfill choice. **Note:** Due to node 16 and earlier versions no longer being maintained, we also strongly recommend the project be updated to the current LTS version.
 
 ## Authorisation
 
