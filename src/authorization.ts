@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import { HttpResponseError } from './http'
 
 interface AccessTokenResponseData {
@@ -110,7 +109,7 @@ export const createClientCredentialsAuthFactory = (clientCredentialsConfig: Clie
 }
 
 export const createOnBehalfOfAuthFactory = (
-  onBehalfOfConfig: Omit<OnBehalfOfConfig, 'assertionToken'>
+  onBehalfOfConfig: Omit<OnBehalfOfConfig, 'assertionToken'>,
 ): HttpAuthFactory<{ assertionToken: string }> => {
   return async ({ assertionToken }) => {
     const config: OnBehalfOfConfig = { assertionToken, ...onBehalfOfConfig }

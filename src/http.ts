@@ -1,19 +1,19 @@
 import { randomUUID } from 'crypto'
-import fetch, { RequestInit, Response } from 'node-fetch'
-import { AuthHeaders, HttpAuthFactory } from './authorization'
-import { Logger } from './logger'
+import type { AuthHeaders, HttpAuthFactory } from './authorization'
+import type { Logger } from './logger'
 
 export class HttpResponseError extends Error {
-  constructor(responseInfo: LoggableHttpResponseInfo, message?: string) {
+  constructor(
+    public responseInfo: LoggableHttpResponseInfo,
+    message?: string,
+  ) {
     super(`${message ?? 'HTTP Error'}: ${responseInfo.status} ${responseInfo.statusText}`)
     this.responseInfo = responseInfo
   }
-  public responseInfo: LoggableHttpResponseInfo
 
-  public static create = async (response: Response, message?: string): Promise<HttpResponseError> => {
-    const error = new HttpResponseError(response, message)
-    error.responseInfo = await extractErrorResponseInfo(response)
-    return error
+  public static async create(response: Response, message?: string): Promise<HttpResponseError> {
+    const responseInfo = await extractErrorResponseInfo(response)
+    return new HttpResponseError(responseInfo, message)
   }
 }
 
@@ -236,8 +236,8 @@ export async function makeHttpRequest({
     ...loggableRequestData,
     headers: Object.fromEntries(
       Object.entries(finalHeaders as Record<string, string>).filter(([header]) =>
-        sensitiveHeaders.every((sh) => header.localeCompare(sh, undefined, { sensitivity: 'base' }) !== 0)
-      )
+        sensitiveHeaders.every((sh) => header.localeCompare(sh, undefined, { sensitivity: 'base' }) !== 0),
+      ),
     ),
   }
   const started = Date.now()
