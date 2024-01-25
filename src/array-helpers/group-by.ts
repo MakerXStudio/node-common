@@ -24,7 +24,7 @@ export function groupBy<T, TKey>(keySelector: (item: T) => TKey) {
         (group = {
           key,
           items: [],
-        })
+        }),
       )
     }
     group.items.push(cur)

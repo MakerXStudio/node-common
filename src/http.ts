@@ -1,11 +1,11 @@
 import { randomUUID } from 'crypto'
-import { AuthHeaders, HttpAuthFactory } from './authorization'
-import { Logger } from './logger'
+import type { AuthHeaders, HttpAuthFactory } from './authorization'
+import type { Logger } from './logger'
 
 export class HttpResponseError extends Error {
   constructor(
     public responseInfo: LoggableHttpResponseInfo,
-    message?: string
+    message?: string,
   ) {
     super(`${message ?? 'HTTP Error'}: ${responseInfo.status} ${responseInfo.statusText}`)
     this.responseInfo = responseInfo
@@ -236,8 +236,8 @@ export async function makeHttpRequest({
     ...loggableRequestData,
     headers: Object.fromEntries(
       Object.entries(finalHeaders as Record<string, string>).filter(([header]) =>
-        sensitiveHeaders.every((sh) => header.localeCompare(sh, undefined, { sensitivity: 'base' }) !== 0)
-      )
+        sensitiveHeaders.every((sh) => header.localeCompare(sh, undefined, { sensitivity: 'base' }) !== 0),
+      ),
     ),
   }
   const started = Date.now()

@@ -68,8 +68,8 @@ describe('combineSortFn', () => {
         combineSortFn(
           sortByIgnoreCase((x) => x.last),
           sortByIgnoreCase((x) => x.first),
-          sortBy((x) => x.dob)
-        )
+          sortBy((x) => x.dob),
+        ),
       )
 
       expect(sorted).toStrictEqual([

@@ -7,7 +7,7 @@ describe('GroupBy', () => {
 
       const grouped = items.reduce(
         groupBy((x) => x),
-        []
+        [],
       )
 
       expect(grouped).toStrictEqual([
@@ -28,7 +28,7 @@ describe('GroupBy', () => {
 
       const grouped = items.reduce(
         groupBy((x) => x.age),
-        []
+        [],
       )
 
       expect(grouped).toStrictEqual([
