@@ -1,4 +1,5 @@
 import { range } from './range'
+import { describe, it, expect } from 'vitest'
 
 describe('Range', () => {
   describe('When generating a range', () => {

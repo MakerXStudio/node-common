@@ -1,4 +1,5 @@
 import { groupBy } from './group-by'
+import { describe, it, expect } from 'vitest'
 
 describe('GroupBy', () => {
   describe('When grouping primitives', () => {

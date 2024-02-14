@@ -1,4 +1,5 @@
 import { combineSortFn, sortBy, sortByIgnoreCase } from './sort-by'
+import { describe, it, expect } from 'vitest'
 
 describe('SortBy', () => {
   describe('When sorting an unordered list', () => {

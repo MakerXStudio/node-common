@@ -9,16 +9,6 @@
   "module": "index.mjs",
   "types": "index.d.ts",
   "main": "index.cjs",
-  "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "module": "./index.mjs",
-      "import": "./index.mjs",
-      "require": "./index.cjs",
-      "default": "./index.mjs"
-    },
-    "./package.json": "./package.json"
-  },
   "engines": {
     "node": ">=18.0"
   },
@@ -31,41 +21,44 @@
     "url": "git+https://github.com/MakerXStudio/node-common.git"
   },
   "scripts": {
+    "audit": "better-npm-audit audit",
+    "format": "prettier --write .",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "build": "run-s build:*",
     "build:0-clean": "rimraf dist coverage",
-    "build:1-compile": "rollup -c --configPlugin typescript",
-    "build:2-copy-pkg-json": "npx --yes @makerx/ts-toolkit@latest copy-package-json --custom-sections type module types exports",
-    "build:3-copy-readme": "copyfiles README.md dist",
-    "test": "jest --coverage --coverageReporters=text",
-    "npm:link": "npm link ./dist",
-    "lint": "eslint ./src/ --ext .ts",
-    "lint:fix": "eslint ./src/ --ext .ts --fix",
-    "check-types": "tsc --noEmit",
-    "audit": "better-npm-audit audit"
+    "build:1-lint": "eslint \"src/**/*.ts\" --max-warnings 0",
+    "build:2-check-types": "tsc -p tsconfig.json",
+    "build:3-build": "rollup -c --configPlugin typescript",
+    "build:4-copy-pkg-json": "tstk copy-package-json -c",
+    "build:5-copy-readme": "copyfiles ./README.md ./dist",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:ci": "vitest run --coverage --reporter junit --outputFile test-results.xml"
   },
   "devDependencies": {
-    "@makerx/eslint-config": "^3.1.0",
-    "@makerx/prettier-config": "^2.0.0",
+    "@makerx/eslint-config": "3.1.1",
+    "@makerx/prettier-config": "2.0.1",
+    "@makerx/ts-toolkit": "^4.0.0-beta.9",
+    "@rollup/plugin-commonjs": "25.0.7",
+    "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@tsconfig/node18": "^18.2.2",
-    "@types/jest": "^29.5.11",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
+    "@tsconfig/node20": "20.1.2",
+    "@types/node": "20.11.17",
+    "@vitest/coverage-v8": "1.2.2",
     "better-npm-audit": "^3.7.3",
     "copyfiles": "^2.4.1",
     "eslint": "8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "jest-date": "^1.1.6",
-    "jest-junit": "^16.0.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.2.2",
+    "prettier": "3.2.5",
     "rimraf": "^5.0.5",
-    "rollup": "^4.9.5",
-    "ts-jest": "^29.1.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "rollup": "4.10.0",
+    "tsx": "4.7.1",
+    "typescript": "^5.3.3",
+    "vitest": "1.2.2"
   }
 }

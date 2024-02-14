@@ -1,5 +1,5 @@
 import { getCircularReplacer } from './get-circular-replacer'
-
+import { describe, it, expect } from 'vitest'
 describe('getCircularReplacer', () => {
   describe('When stringifying an object with a circular reference', () => {
     const objectA = {
