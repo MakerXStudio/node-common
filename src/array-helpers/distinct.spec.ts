@@ -1,4 +1,5 @@
 import { distinct } from './distinct'
+import { describe, it, expect } from 'vitest'
 
 describe('Distinct', () => {
   describe('When given a non distinct list', () => {
