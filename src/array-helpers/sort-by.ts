@@ -1,3 +1,5 @@
+import { caseInsensitiveCompare } from '../utils'
+
 type SortFn<T> = (a: T, b: T) => number
 
 type SortDir = 'asc' | 'desc'
@@ -40,7 +42,7 @@ export const sortByIgnoreCase =
     const keyA = keySelector(a)
     const keyB = keySelector(b)
 
-    return (dir === 'desc' ? -1 : 1) * (keyA ?? '').localeCompare(keyB ?? '', undefined, { sensitivity: 'base' })
+    return (dir === 'desc' ? -1 : 1) * caseInsensitiveCompare(keyA ?? '', keyB ?? '')
   }
 
 /**

@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto'
 import type { AuthHeaders, HttpAuthFactory } from './authorization'
 import type { Logger } from './logger'
+import { caseInsensitiveCompare } from './utils'
 
 export class HttpResponseError extends Error {
   constructor(
@@ -236,7 +237,7 @@ export async function makeHttpRequest({
     ...loggableRequestData,
     headers: Object.fromEntries(
       Object.entries(finalHeaders as Record<string, string>).filter(([header]) =>
-        sensitiveHeaders.every((sh) => header.localeCompare(sh, undefined, { sensitivity: 'base' }) !== 0),
+        sensitiveHeaders.every((sh) => caseInsensitiveCompare(header, sh) !== 0),
       ),
     ),
   }
