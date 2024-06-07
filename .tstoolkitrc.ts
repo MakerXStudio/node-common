@@ -1,14 +1,14 @@
-import type { TsToolkitConfig } from "@makerx/ts-toolkit";
+import type { TsToolkitConfig } from '@makerx/ts-toolkit'
 
 const config: TsToolkitConfig = {
   packageConfig: {
     srcDir: 'src',
     outDir: 'dist',
-    moduleType: 'module',
+    moduleType: 'commonjs',
     main: 'index.ts',
     exports: {
-      '.': 'index.ts'
-    }
-  }
+      '.': 'index.ts',
+    },
+  },
 }
 export default config
