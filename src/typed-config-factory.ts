@@ -12,6 +12,7 @@ export type TypedConfig<TConfig extends object, TOpaque> = {
 }
 
 export type JoinPaths<K, P> = K extends string | number ? (P extends string | number ? `${K}${'' extends P ? '' : '.'}${P}` : never) : never
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DefaultOpaqueTypes = Date | Array<any>
 
 /**
@@ -19,7 +20,7 @@ export type DefaultOpaqueTypes = Date | Array<any>
  *
  * Ensures that types are only considered equal if A is assignable to B AND B is assignable to A
  */
-type ContainsType<T, TUnionOfTypes> = true extends (
+type ContainsType<T, TUnionOfTypes> = true extends ( // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TUnionOfTypes extends any ? ([T, TUnionOfTypes] extends [TUnionOfTypes, T] ? true : false) : never
 )
   ? true
