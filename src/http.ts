@@ -116,6 +116,7 @@ export class HttpClient<TContext = never> {
       authHeaders = authFactory ? await authFactory(requestContext as TContext) : {}
     } catch (error) {
       logger?.error('Authentication via authFactory failed', { error })
+      throw error
     }
     const headers: Record<string, string> = {
       ...baseHeaders,
