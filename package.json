@@ -38,6 +38,8 @@
     "test:ci": "vitest run --coverage --reporter junit --outputFile test-results.xml"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "3.1.0",
+    "@eslint/js": "9.14.0",
     "@makerx/eslint-config": "4.0.0",
     "@makerx/prettier-config": "2.0.1",
     "@makerx/ts-toolkit": "^4.0.0-beta.21",
@@ -47,6 +49,8 @@
     "@rollup/plugin-typescript": "^12.1.1",
     "@tsconfig/node20": "20.1.4",
     "@types/node": "22.9.0",
+    "@typescript-eslint/eslint-plugin": "8.14.0",
+    "@typescript-eslint/parser": "8.14.0",
     "@vitest/coverage-v8": "2.1.4",
     "better-npm-audit": "^3.11.0",
     "copyfiles": "^2.4.1",
@@ -60,10 +64,6 @@
     "rollup": "4.25.0",
     "tsx": "4.19.2",
     "typescript": "^5.6.3",
-    "vitest": "2.1.4",
-    "@eslint/eslintrc": "3.1.0",
-    "@eslint/js": "9.14.0",
-    "@typescript-eslint/eslint-plugin": "8.14.0",
-    "@typescript-eslint/parser": "8.14.0"
+    "vitest": "^2.1.4"
   }
 }
